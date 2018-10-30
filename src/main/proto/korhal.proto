@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "net.ingtra.korhal";
+option java_outer_classname = "KorhalProto";
+option objc_class_prefix = "KORHAL";
+
+package korhal;
+
+service Tokenizer {
+    rpc Tokenize (TextRequest) returns (TokensResponse) {}
+    rpc SplitSentence (TextRequest) returns (TextsResponse) {}
+}
+
+message TextRequest {
+    string text = 1;
+    string tokenizer = 2;
+    repeated string args = 3;
+}
+
+message TokensResponse {
+    message Token {
+        string text = 1;
+        string pos = 2;
+        string misc = 3;
+    }
+
+    repeated Token tokens = 1;
+}
+
+message TextsResponse {
+    repeated string texts = 1;
+}
+
